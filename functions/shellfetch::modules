@@ -1,3 +1,4 @@
 #!/usr/bin/env zsh
+emulate -L zsh
 
 reply+=('Loaded Modules' "${(k)#modules[(R)loaded]} / ${#modules}")

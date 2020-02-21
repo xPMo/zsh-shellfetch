@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+emulate -L zsh
 
 case $_sf_last_keymap in
 	vi*) reply+=('Keymap' 'Vi emulation') ;;

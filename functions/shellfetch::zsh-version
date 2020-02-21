@@ -1,3 +1,4 @@
 #!/usr/bin/env zsh
+emulate -L zsh
 
 reply+=('Zsh Version' $ZSH_VERSION)

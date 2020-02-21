@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+emulate -L zsh
 
 local -i auto_count=${(M)#functions:#*autoload -X*} fcount=$#functions
 reply+=('Loaded Functions' "$((fcount - auto_count)) / $fcount")

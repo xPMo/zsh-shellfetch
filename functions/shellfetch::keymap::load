@@ -1,3 +1,5 @@
 #!/usr/bin/env zsh
+emulate -L zsh
+
 functions[.shellfetch-zle-keymap-select]='_sf_last_keymap=$KEYMAP;'"${widgets[zle-keymap-select]#user:}"
 unfunction $0

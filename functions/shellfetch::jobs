@@ -1,3 +1,4 @@
 #!/usr/bin/env zsh
+emulate -L zsh
 
-reply+=('Running Jobs' "${(M)#jobstates:#running:*} / ${#jobstates}"
+reply+=('Running Jobs' "${(M)#jobstates:#running:*} / ${#jobstates}")

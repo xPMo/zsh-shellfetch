@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
+emulate -L zsh
 
+setopt pushd_silent
 if [[ -v ZINIT_REGISTERED_PLUGINS ]]; then
 	if pushd ${functions_source[zinit]:h}; then
 		reply+=('Plugin Manager' "Zinit ${(%):-%~}/${functions_source[zinit]:t}")
