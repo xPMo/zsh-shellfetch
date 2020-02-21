@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 emulate -L zsh
 
-local path count manager
+local location count manager
 setopt pushd_silent
 
 # Supported managers
@@ -9,7 +9,7 @@ if [[ -v ZINIT_REGISTERED_PLUGINS ]]; then
 	manager='Zinit'
 
 	if pushd ${functions_source[zinit]:h} >/dev/null; then
-		path="${(%):-%~}"
+		location="${(%):-%~}"
 		popd -q
 	fi
 	count=$#ZINIT_REGISTERED_PLUGINS
@@ -17,7 +17,7 @@ elif [[ -v ZPLUG_ROOT ]]; then
 	manager='zplug'
 
 	if pushd $ZPLUG_ROOT >/dev/null; then
-		path="${(%):-%~}"
+		location="${(%):-%~}"
 		popd -q
 	fi
 	count=$#zplugs
@@ -25,7 +25,7 @@ elif [[ -v ZSH ]]; then
 	manager='Oh My Zsh'
 
 	if pushd $ZSH >/dev/null; then
-		path="${(%):-%~}"
+		location="${(%):-%~}"
 		popd -q
 	fi
 	count=$#plugins
@@ -37,8 +37,8 @@ fi
 # Manager
 if zstyle -t :shellfetch:plugins show-manager && [[ -n $manager ]]; then
 	local -a extra
-	if zstyle -t :shellfetch:plugins show-path && [[ -n $path ]]; then
-		extra+=($path)
+	if zstyle -t :shellfetch:plugins show-path && [[ -n $location ]]; then
+		extra+=($location)
 	fi
 	reply+=('Plugin Manager' "$manager ${extra:+"($extra)"}")
 fi

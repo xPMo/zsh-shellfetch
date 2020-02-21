@@ -1,54 +1,46 @@
 #!/usr/bin/env zsh
 emulate -L zsh
 
-local name path
+local name location
 setopt pushd_silent
 
 if [[ -v ZSH_THEME ]]; then
 	# Oh-my-zsh theme
-	theme=$ZSH_THEME
+	name=$ZSH_THEME
 
-	for path (
+	for location (
 		"$ZSH_CUSTOM/$ZSH_THEME.zsh-theme"
 		"$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme"
 		"$ZSH/themes/$ZSH_THEME.zsh-theme"
 	); do
-		[[ -f $path ]] && break
+		[[ -f $location ]] && break
 	done
-	if pushd ${path:h} >/dev/null; then
-		path="${(%):-%~}/${path:t}"
+	if pushd ${location:h} >/dev/null; then
+		location="${(%):-%~}/${location:t}"
 		popd -q
 	fi
 elif [[ -v P9K_PROMPT ]]; then
 	if [[ -v functions[p10k] ]]; then
-		theme='Powerlevel10k'
+		name='Powerlevel10k'
 
 		if pushd ${functions_source[p10k]:h} >/dev/null; then
-			path="${(%):-%~}"
+			location="${(%):-%~}"
 			popd -q
 		fi
 	else
-		theme='Powerlevel9k'
+		name='Powerlevel9k'
 
 		if pushd $p9k_directory; then
-			path=${(%):-%~}
+			location=${(%):-%~}
 			popd -q
 		fi
 	fi
-elif [[ -v ZSH ]]; then
-	manager='Oh My Zsh'
-
-	if pushd $ZSH >/dev/null; then
-		path="${(%):-%~}"
-		popd -q
-	fi
-	count=$#plugins
 else
 	return 1
 fi
 
-
-if zstyle -t :shellfetch:theme show-path && [[ -n $path ]]; then
-	extra+=($path)
+local -a extra
+if zstyle -t :shellfetch:theme show-path && [[ -n $location ]]; then
+	extra+=($location)
 fi
 reply+=('Theme' "$name${extra:+" ($extra)"}")

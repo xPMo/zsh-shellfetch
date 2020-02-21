@@ -6,7 +6,7 @@ setopt extendedglob
 	source "${XDG_CONFIG_HOME:-"$HOME/.config"}/shellfetch" ]]
 
 local -a fns reply
-local fn name t color=1
+local fn name t color='1'
 local -i max=1
 
 if [[ -v SHELLFETCH_ORDER ]]; then
