@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+reply+=('Loaded Modules' "${(k)#modules[(R)loaded]} / ${#modules}")

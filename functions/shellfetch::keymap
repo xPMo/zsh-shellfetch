@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+case $_sf_last_keymap in
+	vi*) reply+=('Keymap' 'Vi emulation') ;;
+	emacs) reply+=('Keymap' 'EMACS emulation') ;;
+	isearch) reply+=('Keymap' 'Search') ;;
+	.safe) reply+=('Keymap' 'Fallback keymap') ;;
+	*)
+esac

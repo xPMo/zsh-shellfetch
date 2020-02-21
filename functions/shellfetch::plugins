@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+if [[ -v ZINIT_REGISTERED_PLUGINS ]]; then
+	if pushd ${functions_source[zinit]:h}; then
+		reply+=('Plugin Manager' "Zinit ${(%):-%~}/${functions_source[zinit]:t}")
+		popd
+	fi
+	reply+=('Plugin Manager' Zinit)
+	reply+=('Plugins' $#ZINIT_REGISTERED_PLUGINS)
+fi

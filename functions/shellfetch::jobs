@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+reply+=('Running Jobs' "${(M)#jobstates:#running:*} / ${#jobstates}"
