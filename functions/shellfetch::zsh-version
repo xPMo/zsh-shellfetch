@@ -1,4 +1,8 @@
 #!/usr/bin/env zsh
 emulate -L zsh
 
-reply+=('Zsh Version' $ZSH_VERSION)
+if zstyle -t :shellfetch:zsh-version long; then
+	reply+=('Zsh Version' "${ZSH_PATCHLEVEL#zsh-}")
+else
+	reply+=('Zsh Version' "$ZSH_VERSION")
+fi

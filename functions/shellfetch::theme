@@ -1,0 +1,54 @@
+#!/usr/bin/env zsh
+emulate -L zsh
+
+local name path
+setopt pushd_silent
+
+if [[ -v ZSH_THEME ]]; then
+	# Oh-my-zsh theme
+	theme=$ZSH_THEME
+
+	for path (
+		"$ZSH_CUSTOM/$ZSH_THEME.zsh-theme"
+		"$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme"
+		"$ZSH/themes/$ZSH_THEME.zsh-theme"
+	); do
+		[[ -f $path ]] && break
+	done
+	if pushd ${path:h} >/dev/null; then
+		path="${(%):-%~}/${path:t}"
+		popd -q
+	fi
+elif [[ -v P9K_PROMPT ]]; then
+	if [[ -v functions[p10k] ]]; then
+		theme='Powerlevel10k'
+
+		if pushd ${functions_source[p10k]:h} >/dev/null; then
+			path="${(%):-%~}"
+			popd -q
+		fi
+	else
+		theme='Powerlevel9k'
+
+		if pushd $p9k_directory; then
+			path=${(%):-%~}
+			popd -q
+		fi
+	fi
+elif [[ -v ZSH ]]; then
+	manager='Oh My Zsh'
+
+	if pushd $ZSH >/dev/null; then
+		path="${(%):-%~}"
+		popd -q
+	fi
+	count=$#plugins
+else
+	return 1
+fi
+
+
+if zstyle -t :shellfetch:theme show-path && [[ -n $path ]]; then
+	extra+=($path)
+fi
+reply+=('Theme' "$name${extra:+" ($extra)"}")

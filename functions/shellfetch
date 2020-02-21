@@ -1,7 +1,28 @@
 #!/usr/bin/env zsh
 emulate -L zsh
+setopt extendedglob
 
-source "${XDG_CONFIG_HOME:-"$HOME/.config"}/shellfetch"
+[[ -r "${XDG_CONFIG_HOME:-"$HOME/.config"}/shellfetch" ]] &&
+	source "${XDG_CONFIG_HOME:-"$HOME/.config"}/shellfetch" ]]
 
+local -a fns reply
+local fn name t color=1
+local -i max=1
 
+if [[ -v SHELLFETCH_ORDER ]]; then
+	fns=(shellfetch::${^SHELLFETCH_ORDER})
+	for fn in ${fns:|functions}; do
+		print -u2 "$0: No such function $fn"
+	done
+	fns=(${fns:*functions})
+else
+	fns=($functions[(I)shellfetch::^(*::*)])
+fi
+
+for fn ($fns) $fn
+
+for name t in "${(@)reply}"; do
+	((max = max > $#name ? max : $#name))
+done
+printf "\e[${color}m%${max}s\e[0m: %s\n" "${(@)reply}"
 
