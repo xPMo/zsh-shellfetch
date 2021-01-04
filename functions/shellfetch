@@ -20,6 +20,10 @@ else
 fi
 
 for fn ($fns){
+	if (($+functions[$fn::load])); then
+		$fn::load
+		unfunction $fn::load
+	fi
 	$fn
 }
 
