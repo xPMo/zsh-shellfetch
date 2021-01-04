@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-emulate -L zsh
 
 if zstyle -t :shellfetch:zsh-version long; then
 	reply+=('Zsh Version' "${ZSH_PATCHLEVEL#zsh-}")
