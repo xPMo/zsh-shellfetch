@@ -1,4 +1,4 @@
 #!/usr/bin/env zsh
 emulate -L zsh
-
-reply+=('Loaded Modules' "${(k)#modules[(R)loaded]} / ${#modules}")
+local total=($^module_path/**/*.so)
+reply+=('Loaded Modules' "${(k)#modules[(R)loaded]} (${#modules}) / $#total")

@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+emulate -L zsh
+
+local -a hooktypes=(chpwd precmd preexec periodic zshaddhistory zshexit zsh_directory_name)
+local hooktpe
+local -i total
+for hooktype in ${^hooktypes}_functions; do
+	((total += ${(P)#hooktype}))
+done
+reply+=('Hook functions' "$total")

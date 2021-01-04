@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 emulate -L zsh
 
-local name location
+# Save $reply, since cwd hooks can break things
+local name location r=("${(@)reply}")
 setopt pushd_silent
 
 if [[ -v ZSH_THEME ]]; then
@@ -43,4 +44,4 @@ local -a extra
 if zstyle -t :shellfetch:theme show-path && [[ -n $location ]]; then
 	extra+=($location)
 fi
-reply+=('Theme' "$name${extra:+" ($extra)"}")
+reply=("${(@)r}" 'Theme' "$name${extra:+" ($extra)"}")

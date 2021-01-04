@@ -33,7 +33,6 @@ else
 	return 1
 fi
 
-
 # Manager
 if zstyle -t :shellfetch:plugins show-manager && [[ -n $manager ]]; then
 	local -a extra

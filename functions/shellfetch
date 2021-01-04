@@ -5,12 +5,12 @@ setopt extendedglob
 [[ -r "${XDG_CONFIG_HOME:-"$HOME/.config"}/shellfetch" ]] &&
 	source "${XDG_CONFIG_HOME:-"$HOME/.config"}/shellfetch" ]]
 
-local -a fns reply
+local -a fns reply order
 local fn name t color='1'
 local -i max=1
 
-if [[ -v SHELLFETCH_ORDER ]]; then
-	fns=(shellfetch::${^SHELLFETCH_ORDER})
+if zstyle -a :shellfetch order order; then
+	fns=(shellfetch::$^order)
 	for fn in ${fns:|functions}; do
 		print -u2 "$0: No such function $fn"
 	done
@@ -19,7 +19,9 @@ else
 	fns=($functions[(I)shellfetch::^(*::*)])
 fi
 
-for fn ($fns) $fn
+for fn ($fns){
+	$fn
+}
 
 for name t in "${(@)reply}"; do
 	((max = max > $#name ? max : $#name))

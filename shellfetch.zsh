@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
+emulate -L zsh
+setopt extendedglob
 
-autoload -Uz shellfetch{,::{aliases,functions,jobs,keymap,keymap::load,modules,plugins,theme,zsh-version}}
+# Tired of manually adding to the list
+local -a fns=("${0:h}/functions"/^*.zwc)
+autoload -Uz ${fns#"${0:h}/functions/"}
 
 fpath+=("${0:h}/functions")
