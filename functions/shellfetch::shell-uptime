@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 emulate -L zsh
 
-local label n r s=$SECONDS
+local label
+local -i n r s=SECONDS
 local -a ret
 for label n (
 	d 86400
