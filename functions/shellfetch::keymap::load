@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 emulate -L zsh
 
-functions[.shellfetch-zle-keymap-select]='_sf_last_keymap=$KEYMAP;'"${widgets[zle-keymap-select]#user:}"
-unfunction $0
+autoload add-zle-hook-widget
+functions[.shellfetch-zle-keymap-select]='_sf_last_keymap=$KEYMAP;'
+add-zle-hook-widget zle-keymap-select .shellfetch-zle-keymap-select
